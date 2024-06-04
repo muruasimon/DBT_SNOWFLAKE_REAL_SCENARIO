@@ -27,7 +27,7 @@ jobs:
       - name: Create profiles.yml
         run: |
           mkdir -p ~/.dbt
-          echo "your_profile_name:
+          echo "default:
             target: dev
             outputs:
               dev:
