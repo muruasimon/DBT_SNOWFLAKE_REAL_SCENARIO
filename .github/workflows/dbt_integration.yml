@@ -19,8 +19,6 @@ jobs:
               uses: mwhitaker/dbt-action@profdir
               with:
                 dbt_command: "dbt run"
-                dbt_project_folder: "."
-                dbt_profile_folder: "."
               env:
                 DBT_USER: ${{ secrets.DBT_SF_USER }}
                 DBT_PASSWORD: ${{ secrets.DBT_SF_PASSWORD }}
