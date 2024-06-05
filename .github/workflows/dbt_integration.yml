@@ -4,7 +4,7 @@ on:
   schedule:
     - cron: "5 * * * *"
   pull_request:
-    branches: [main]
+    branches: "*"
 
 jobs:
   action:
@@ -42,10 +42,23 @@ jobs:
                 threads: 1
                 client_session_keep_alive: false" > ~/.dbt/profiles.yml
 
-      - name: Run dbt
+      - name: Run debug
         run: |
           . venv/bin/activate
-          dbt run
+          dbt debug
+        env:
+          DBT_SF_ACCOUNT: ${{ secrets.DBT_SF_ACCOUNT }}
+          DBT_SF_USER: ${{ secrets.DBT_SF_USER }}
+          DBT_SF_PASSWORD: ${{ secrets.DBT_SF_PASSWORD }}
+          DBT_SF_ROLE: ${{ secrets.DBT_SF_ROLE }}
+          DBT_SF_DATABASE: ${{ secrets.DBT_SF_DATABASE }}
+          DBT_SF_WAREHOUSE: ${{ secrets.DBT_SF_WAREHOUSE }}
+          DBT_SF_SCHEMA: ${{ secrets.DBT_SF_SCHEMA }}
+
+      - name: Run compile
+        run: |
+          . venv/bin/activate
+          dbt compile
         env:
           DBT_SF_ACCOUNT: ${{ secrets.DBT_SF_ACCOUNT }}
           DBT_SF_USER: ${{ secrets.DBT_SF_USER }}
