@@ -1,7 +1,7 @@
 name: change_file_location
 
 on: 
-    push:
+    merge:
         branches: [main]
 
 jobs:
