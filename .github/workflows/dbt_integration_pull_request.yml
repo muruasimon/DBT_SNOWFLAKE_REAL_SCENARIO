@@ -1,0 +1,73 @@
+name: dbt_integration_pull_request
+
+on:
+  schedule:
+    - cron: "5 * * * *"
+  pull_request:
+    branches: "*"
+
+jobs:
+  action:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+
+      - name: Install dbt
+        run: |
+          python -m venv venv
+          . venv/bin/activate
+          pip install dbt-snowflake
+
+      - name: Create profiles.yml
+        run: |
+          mkdir -p ~/.dbt
+          echo "default:
+            target: dev
+            outputs:
+              dev:
+                type: snowflake
+                account: ${{ secrets.DBT_SF_ACCOUNT }}
+                user: ${{ secrets.DBT_SF_USER }}
+                password: ${{ secrets.DBT_SF_PASSWORD }}
+                role: ${{ secrets.DBT_SF_ROLE }}
+                database: ${{ secrets.DBT_SF_DATABASE }}
+                warehouse: ${{ secrets.DBT_SF_WAREHOUSE }}
+                schema: ${{ secrets.DBT_SF_SCHEMA }}
+                threads: 1
+                client_session_keep_alive: false" > ~/.dbt/profiles.yml
+
+      - name: Run debug
+        run: |
+          . venv/bin/activate
+          dbt debug
+        env:
+          DBT_SF_ACCOUNT: ${{ secrets.DBT_SF_ACCOUNT }}
+          DBT_SF_USER: ${{ secrets.DBT_SF_USER }}
+          DBT_SF_PASSWORD: ${{ secrets.DBT_SF_PASSWORD }}
+          DBT_SF_ROLE: ${{ secrets.DBT_SF_ROLE }}
+          DBT_SF_DATABASE: ${{ secrets.DBT_SF_DATABASE }}
+          DBT_SF_WAREHOUSE: ${{ secrets.DBT_SF_WAREHOUSE }}
+          DBT_SF_SCHEMA: ${{ secrets.DBT_SF_SCHEMA }}
+
+      - name: Run compile
+        run: |
+          . venv/bin/activate
+          dbt compile
+        env:
+          DBT_SF_ACCOUNT: ${{ secrets.DBT_SF_ACCOUNT }}
+          DBT_SF_USER: ${{ secrets.DBT_SF_USER }}
+          DBT_SF_PASSWORD: ${{ secrets.DBT_SF_PASSWORD }}
+          DBT_SF_ROLE: ${{ secrets.DBT_SF_ROLE }}
+          DBT_SF_DATABASE: ${{ secrets.DBT_SF_DATABASE }}
+          DBT_SF_WAREHOUSE: ${{ secrets.DBT_SF_WAREHOUSE }}
+          DBT_SF_SCHEMA: ${{ secrets.DBT_SF_SCHEMA }}
+
+      - name: Get the result
+        run: echo "${{ steps.dbt-run.outputs.result }}"
+        shell: bash 
