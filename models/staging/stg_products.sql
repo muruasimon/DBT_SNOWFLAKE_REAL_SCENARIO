@@ -2,7 +2,7 @@ with raw_products as (
     select
         P_PARTKEY as product_id,
         P_NAME as product_name,
-        P_MFGR as manufacturer,
+        P_MFGR as manufacturer
         P_CATEGORY as category,
         P_BRAND as brand,
         P_TYPE as type,
@@ -20,4 +20,4 @@ select
     type,
     size,
     container
-from raw_products
+--from raw_products
