@@ -15,4 +15,4 @@ select
     total_price,
     order_date
 from raw_orders
-where order_date >= '2023-01-01'
+where order_date >= '1997-01-01'
