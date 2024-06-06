@@ -9,17 +9,17 @@ with
             p_type as type,
             p_size as size,
             p_container as container
-       -- from snowflake_sample_data.tpch_sf1.part
+        from snowflake_sample_data.tpch_sf1.part
     )
 
 select
     product_id,
     product_name,
     manufacturer,
-    category,
+   -- category,
     brand,
     type,
     size,
     container
-    -- from raw_products
+    from raw_products
     
