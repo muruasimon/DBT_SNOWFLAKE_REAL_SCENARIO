@@ -68,10 +68,10 @@ jobs:
           DBT_SF_WAREHOUSE: ${{ secrets.DBT_SF_WAREHOUSE }}
           DBT_SF_SCHEMA: ${{ secrets.DBT_SF_SCHEMA }}
 
-      - name: Run-operation
+      - name: Run build
         run: |
           . venv/bin/activate
-          dbt run-operation
+          dbt build
         env:
           DBT_SF_ACCOUNT: ${{ secrets.DBT_SF_ACCOUNT }}
           DBT_SF_USER: ${{ secrets.DBT_SF_USER }}
