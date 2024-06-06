@@ -1,15 +1,16 @@
-with raw_products as (
-    select
-        P_PARTKEY as product_id,
-        P_NAME as product_name,
-        P_MFGR as manufacturer
-        P_CATEGORY as category,
-        P_BRAND as brand,
-        P_TYPE as type,
-        P_SIZE as size,
-        P_CONTAINER as container
-    from SNOWFLAKE_SAMPLE_DATA.TPCH_SF1.PART
-)
+with
+    raw_products as (
+        select
+            p_partkey as product_id,
+            p_name as product_name,
+            p_mfgr as manufacturer
+            p_category as category,
+            p_brand as brand,
+            p_type as type,
+            p_size as size,
+            p_container as container
+        from snowflake_sample_data.tpch_sf1.part
+    )
 
 select
     product_id,
@@ -20,4 +21,5 @@ select
     type,
     size,
     container
---from raw_products
+    -- from raw_products
+    
