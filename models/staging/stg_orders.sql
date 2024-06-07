@@ -1,3 +1,5 @@
+{% set date_filter = "2023-01-01" %}
+
 with raw_orders as (
     select
         O_ORDERKEY as order_id,
@@ -15,4 +17,4 @@ select
     total_price,
     order_date
 from raw_orders
-where order_date >= '1997-01-01'
+where order_date >= '{{ date_filter }}'
