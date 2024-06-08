@@ -6,7 +6,8 @@ joined_customers as (
         c.c_custkey as customer_id,
         c.c_name as customer_name,
         c.c_nationkey as nation_id,
-        r.region_name as region_name
+        r.region_name as region_name,
+        current_timestamp() as last_updated  -- Ensure it's included here as well
     from customers c
     join {{ ref('region_data') }} r on c.c_nationkey = r.region_id
 )
