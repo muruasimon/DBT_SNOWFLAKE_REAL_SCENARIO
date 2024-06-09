@@ -1,0 +1,23 @@
+version: 2
+
+exposures:
+  - name: bi_dashboard
+    type: dashboard
+    owner:
+      name: "Data Team"
+      email: "data-team@example.com"
+    depends_on:
+      - ref('orders_summary')
+      - ref('customer_lifetime_value')
+    url: "https://bi.example.com/dashboards/order_analysis"
+    description: "Dashboard for analyzing orders and customer lifetime value"
+
+  - name: marketing_report
+    type: report
+    owner:
+      name: "Marketing Team"
+      email: "marketing-team@example.com"
+    depends_on:
+      - ref('customer_retention')
+    url: "https://reports.example.com/marketing/customer_retention"
+    description: "Report for analyzing customer retention metrics"
