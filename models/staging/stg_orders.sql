@@ -14,3 +14,4 @@ joined_orders as (
 )
 
 select * from joined_orders
+
