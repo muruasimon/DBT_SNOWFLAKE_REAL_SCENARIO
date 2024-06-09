@@ -1,0 +1,19 @@
+version: 2
+
+models:
+  - name: stg_customers
+    description: "Staging table for customers"
+    columns:
+      - name: customer_id
+        description: "Primary key for customers"
+        tests:
+          - not_null
+          - unique
+      - name: customer_name
+        description: "Name of the customer"
+        tests:
+          - not_null
+      - name: region_name
+        description: "Region of the customer"
+        tests:
+          - not_null
