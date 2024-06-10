@@ -53,4 +53,3 @@ seeds:
 snapshots:
   sample_project:
     enabled: true
-

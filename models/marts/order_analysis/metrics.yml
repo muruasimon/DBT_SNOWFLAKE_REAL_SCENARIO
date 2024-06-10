@@ -1,0 +1,28 @@
+version: 2
+
+models:
+  - name: orders_summary
+    description: "Summary of orders"
+    columns:
+      - name: total_revenue
+        description: "Total revenue from all orders"
+        metrics:
+          - name: total_revenue
+            label: "Total Revenue"
+            type: sum
+            sql: total_revenue
+            timestamp: order_date
+            time_grains: [day, week, month, quarter, year]
+
+  - name: customer_lifetime_value
+    description: "Lifetime value of customers"
+    columns:
+      - name: lifetime_value
+        description: "Lifetime value of each customer"
+        metrics:
+          - name: customer_lifetime_value
+            label: "Customer Lifetime Value"
+            type: sum
+            sql: lifetime_value
+            timestamp: order_date
+            time_grains: [day, week, month, quarter, year]
